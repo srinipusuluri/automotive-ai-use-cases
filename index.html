@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI in Automotive - Comprehensive Use Cases</title>
+    <style>
+        :root {
+            --primary-color: #ef4444;
+            --secondary-color: #f59e0b;
+            --accent-color: #10b981;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --auto-red: #ef4444;
+            --speed-orange: #f97316;
+            --tech-blue: #3b82f6;
+            --electric-green: #22c55e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-color), #0b1220);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--auto-red), var(--speed-orange), var(--tech-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .nav-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-color: var(--primary-color);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(45deg, var(--auto-red), var(--speed-orange));
+            border: none;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--auto-red), var(--speed-orange), var(--tech-blue));
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .icon.ml { background: rgba(239, 68, 68, 0.2); color: var(--auto-red); }
+        .icon.gen { background: rgba(249, 115, 22, 0.2); color: var(--speed-orange); }
+        .icon.ag { background: rgba(34, 197, 94, 0.2); color: var(--electric-green); }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-content {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(45deg, var(--auto-red), var(--speed-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .architecture-diagram {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .architecture-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .architecture-item::before {
+            content: '→';
+            color: var(--auto-red);
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(249, 115, 22, 0.1));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-title {
+            color: var(--auto-red);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .metric-card {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--auto-red);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .automotive-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .ev-badge {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            margin-left: 0.5rem;
+        }
+
+        .autonomous-badge {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            margin-left: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .container { padding: 1rem; }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚗 AI in Automotive</h1>
+            <p class="subtitle">Comprehensive Guide to Machine Learning, Generative AI, and Agentic Systems in Automotive & Mobility</p>
+        </header>
+
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="showSection('ml')">🔮 ML / Predictive</button>
+            <button class="nav-btn" onclick="showSection('gen')">✍️ Generative AI</button>
+            <button class="nav-btn" onclick="showSection('agentic')">🤖 Agentic AI</button>
+        </div>
+
+        <!-- ML / Predictive Use Cases -->
+        <div id="ml" class="content-section active">
+            <h2 class="section-title">🔮 Machine Learning & Predictive Analytics</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                Advanced statistical models and algorithms for vehicle performance, safety, and manufacturing optimization
+            </p>
+
+            <div class="card-grid">
+                <!-- Predictive Vehicle Maintenance -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">🔧</div>
+                        <div>
+                            <div class="card-title">Predictive Vehicle Maintenance</div>
+                            <div class="card-subtitle">Vehicle Health Monitoring</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict vehicle component failures and maintenance needs before they occur to minimize downtime and improve safety.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">IoT Sensor Analytics</span>
+                            <span class="tech-tag">Anomaly Detection</span>
+                            <span class="tech-tag">Time Series Forecasting</span>
+                            <span class="tech-tag">Condition Monitoring</span>
+                            <span class="tech-tag">Maintenance Scheduling</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Vehicle Sensors → Health Monitoring → Failure Prediction → Maintenance Scheduling → Service Coordination</div>
+                            <div class="architecture-item">Driving Patterns → Component Wear → Risk Assessment → Preventive Actions → Performance Tracking</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Vehicle telematics and sensor data</li>
+                                <li>Engine performance metrics</li>
+                                <li>Transmission and brake system data</li>
+                                <li>Driving behavior and conditions</li>
+                                <li>Environmental factors and usage patterns</li>
+                                <li>Historical maintenance and repair records</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Maintenance Costs</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">50-70%</div>
+                                <div class="metric-label">Breakdown Reduction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">25-40%</div>
+                                <div class="metric-label">Vehicle Uptime</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Driver Behavior Analytics -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">👤</div>
+                        <div>
+                            <div class="card-title">Driver Behavior Analytics</div>
+                            <div class="card-subtitle">Safety & Performance Analysis</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Analyze driving patterns to improve safety, reduce fuel consumption, and optimize insurance pricing.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Behavioral Analytics</span>
+                            <span class="tech-tag">Telematics Data</span>
+                            <span class="tech-tag">Risk Assessment</span>
+                            <span class="tech-tag">Safety Scoring</span>
+                            <span class="tech-tag">Training Recommendations</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Driving Data → Pattern Analysis → Risk Assessment → Safety Scoring → Improvement Planning</div>
+                            <div class="architecture-item">Acceleration/Braking → Cornering → Speed Patterns → Behavior Classification → Coaching</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Real-time vehicle telemetry data</li>
+                                <li>Acceleration and braking patterns</li>
+                                <li>Cornering and lane change behavior</li>
+                                <li>Speed and traffic condition data</li>
+                                <li>Time-of-day and route analysis</li>
+                                <li>Historical accident and incident data</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Accident Reduction</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">10-20%</div>
+                                <div class="metric-label">Fuel Consumption</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">20-40%</div>
+                                <div class="metric-label">Insurance Costs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Battery Health Prediction -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">🔋</div>
+                        <div>
+                            <div class="card-title">Battery Health Prediction</div>
+                            <div class="card-subtitle">EV Performance Optimization</div>
+                            <span class="ev-badge">Electric Vehicle</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict battery degradation and optimize charging patterns to extend EV battery life and performance.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Battery Analytics</span>
+                            <span class="tech-tag">Degradation Modeling</span>
+                            <span class="tech-tag">Charging Optimization</span>
+                            <span class="tech-tag">Thermal Management</span>
+                            <span class="tech-tag">Performance Prediction</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Battery Sensors → Health Monitoring → Degradation Prediction → Charging Optimization → Range Estimation</div>
+                            <div class="architecture-item">Temperature Data → Charge Cycles → Usage Patterns → Performance Modeling → Maintenance Planning</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Battery management system (BMS) data</li>
+                                <li>Charge/discharge cycle history</li>
+                                <li>Temperature and thermal data</li>
+                                <li>Driving patterns and energy consumption</li>
+                                <li>Charging behavior and infrastructure</li>
+                                <li>Environmental conditions</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">20-35%</div>
+                                <div class="metric-label">Battery Lifespan</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">15-25%</div>
+                                <div class="metric-label">Range Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Charging Efficiency</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Autonomous Driving Perception -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">👁️</div>
+                        <div>
+                            <div class="card-title">Autonomous Driving Perception</div>
+                            <div class="card-subtitle">Sensor Fusion & Object Detection</div>
+                            <span class="autonomous-badge">Self-Driving</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Process sensor data to detect and classify objects, enabling safe autonomous vehicle navigation.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Computer Vision</span>
+                            <span class="tech-tag">LiDAR Processing</span>
+                            <span class="tech-tag">Sensor Fusion</span>
+                            <span class="tech-tag">Deep Learning</span>
+                            <span class="tech-tag">Real-time Processing</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Camera Data → Object Detection → Classification → Tracking → Decision Making</div>
+                            <div class="architecture-item">LiDAR/Radar → Sensor Fusion → Environment Mapping → Path Planning → Control</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Multi-sensor data (cameras, LiDAR, radar)</li>
+                                <li>Object detection and classification datasets</li>
+                                <li>Weather and lighting condition data</li>
+                                <li>Traffic pattern analysis</li>
+                                <li>HD mapping and localization data</li>
+                                <li>Safety and redundancy requirements</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">95-99%</div>
+                                <div class="metric-label">Object Detection</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Classification Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">Real-time</div>
+                                <div class="metric-label">Processing</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warranty Claim Prediction -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">📋</div>
+                        <div>
+                            <div class="card-title">Warranty Claim Prediction</div>
+                            <div class="card-subtitle">Cost Management</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict potential warranty claims to optimize costs and improve vehicle quality.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Predictive Analytics</span>
+                            <span class="tech-tag">Failure Analysis</span>
+                            <span class="tech-tag">Quality Control</span>
+                            <span class="tech-tag">Cost Optimization</span>
+                            <span class="tech-tag">Risk Assessment</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Vehicle Data → Failure Prediction → Claim Probability → Cost Estimation → Prevention Planning</div>
+                            <div class="architecture-item">Manufacturing Data → Quality Analysis → Defect Detection → Warranty Risk → Process Improvement</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Vehicle production and assembly data</li>
+                                <li>Component supplier information</li>
+                                <li>Historical warranty claim data</li>
+                                <li>Vehicle usage and maintenance patterns</li>
+                                <li>Environmental and operating conditions</li>
+                                <li>Quality control and inspection data</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Warranty Costs</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Claim Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">25-40%</div>
+                                <div class="metric-label">Quality Improvement</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crash Risk Modeling -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ml">⚠️</div>
+                        <div>
+                            <div class="card-title">Crash Risk Modeling</div>
+                            <div class="card-subtitle">Safety System Optimization</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Predict crash likelihood and optimize safety systems to prevent accidents and minimize injury severity.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Risk Assessment</span>
+                            <span class="tech-tag">Safety Analytics</span>
+                            <span class="tech-tag">Predictive Modeling</span>
+                            <span class="tech-tag">Collision Avoidance</span>
+                            <span class="tech-tag">Impact Analysis</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Environmental Data → Risk Assessment → Safety System Activation → Collision Avoidance → Impact Mitigation</div>
+                            <div class="architecture-item">Driver Behavior → Vehicle Dynamics → Crash Prediction → Safety Response → Injury Prevention</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Traffic and road condition data</li>
+                                <li>Vehicle dynamics and sensor data</li>
+                                <li>Driver behavior and attention metrics</li>
+                                <li>Weather and visibility conditions</li>
+                                <li>Historical crash and near-miss data</li>
+                                <li>Safety system performance data</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Crash Prevention</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Injury Severity</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">Risk Detection</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generative AI Use Cases -->
+        <div id="gen" class="content-section">
+            <h2 class="section-title">✍️ Generative AI Applications</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                AI-powered content generation, design assistance, and customer communication in automotive industry
+            </p>
+
+            <div class="card-grid">
+                <!-- Vehicle Manual Generation -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">📖</div>
+                        <div>
+                            <div class="card-title">Vehicle Manual Generation</div>
+                            <div class="card-subtitle">Technical Documentation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Automatically generate comprehensive vehicle owner's manuals and technical documentation.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Technical Writing</span>
+                            <span class="tech-tag">Template-based Generation</span>
+                            <span class="tech-tag">Multilingual Support</span>
+                            <span class="tech-tag">Regulatory Compliance</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Vehicle Specifications → Feature Documentation → User Instructions → Safety Information → Manual Generation</div>
+                            <div class="architecture-item">Technical Data → Diagram Generation → Step-by-step Guides → Troubleshooting → Quality Review</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Vehicle technical specifications</li>
+                                <li>Feature descriptions and capabilities</li>
+                                <li>Safety regulations and standards</li>
+                                <li>Service and maintenance procedures</li>
+                                <li>Customer support knowledge base</li>
+                                <li>Localization and translation requirements</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">70-85%</div>
+                                <div class="metric-label">Documentation Time</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">95-99%</div>
+                                <div class="metric-label">Information Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">Multi-language</div>
+                                <div class="metric-label">Support</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marketing Content Creation -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">📢</div>
+                        <div>
+                            <div class="card-title">Marketing Content Creation</div>
+                            <div class="card-subtitle">Campaign & Creative Generation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate compelling marketing content, advertisements, and promotional materials for vehicles and campaigns.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Creative Writing</span>
+                            <span class="tech-tag">Brand Guidelines</span>
+                            <span class="tech-tag">Target Audience Analysis</span>
+                            <span class="tech-tag">Multi-channel Content</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Brand Strategy → Target Analysis → Content Generation → Creative Review → Campaign Deployment</div>
+                            <div class="architecture-item">Vehicle Features → Emotional Appeal → Messaging Framework → Content Variations → Performance Tracking</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Brand guidelines and voice</li>
+                                <li>Target audience demographics</li>
+                                <li>Competitor analysis</li>
+                                <li>Vehicle unique selling points</li>
+                                <li>Market trends and preferences</li>
+                                <li>Previous campaign performance</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Content Creation Time</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">25-40%</div>
+                                <div class="metric-label">Campaign Performance</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">50-70%</div>
+                                <div class="metric-label">Creative Variations</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Report Drafting -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">📋</div>
+                        <div>
+                            <div class="card-title">Service Report Drafting</div>
+                            <div class="card-subtitle">Maintenance Documentation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Automatically generate detailed service reports and maintenance recommendations for vehicles.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Service Data Analysis</span>
+                            <span class="tech-tag">Diagnostic Integration</span>
+                            <span class="tech-tag">Customer Communication</span>
+                            <span class="tech-tag">Recommendation Engine</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Diagnostic Data → Issue Analysis → Service Recommendations → Report Generation → Customer Review</div>
+                            <div class="architecture-item">Maintenance History → Wear Assessment → Preventive Actions → Cost Estimation → Approval Process</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Vehicle diagnostic trouble codes</li>
+                                <li>Service history and maintenance records</li>
+                                <li>Component wear and tear data</li>
+                                <li>Manufacturer service guidelines</li>
+                                <li>Parts availability and pricing</li>
+                                <li>Customer preferences and budget</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">75-90%</div>
+                                <div class="metric-label">Report Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Service Advisor Time</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Customer Understanding</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design Concept Ideation -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">🎨</div>
+                        <div>
+                            <div class="card-title">Design Concept Ideation</div>
+                            <div class="card-subtitle">Automotive Styling</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate innovative vehicle design concepts and styling ideas using AI-powered creativity tools.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Generative Design</span>
+                            <span class="tech-tag">CAD Integration</span>
+                            <span class="tech-tag">Aerodynamics</span>
+                            <span class="tech-tag">Material Optimization</span>
+                            <span class="tech-tag">Trend Analysis</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Design Requirements → Concept Generation → Aerodynamic Analysis → Material Selection → Prototype Design</div>
+                            <div class="architecture-item">Market Trends → Styling Concepts → Feasibility Analysis → Cost Optimization → Production Planning</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Design constraints and requirements</li>
+                                <li>Material properties and costs</li>
+                                <li>Aerodynamic performance data</li>
+                                <li>Manufacturing capabilities</li>
+                                <li>Market trends and consumer preferences</li>
+                                <li>Brand design language</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">80-90%</div>
+                                <div class="metric-label">Design Iterations</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">15-25%</div>
+                                <div class="metric-label">Development Time</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">10-20%</div>
+                                <div class="metric-label">Material Costs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Support Chatbot -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">💬</div>
+                        <div>
+                            <div class="card-title">Customer Support Chatbot</div>
+                            <div class="card-subtitle">AI-powered Assistance</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Provide 24/7 customer support for vehicle inquiries, service scheduling, and troubleshooting.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Natural Language Processing</span>
+                            <span class="tech-tag">Knowledge Base Integration</span>
+                            <span class="tech-tag">Service Scheduling</span>
+                            <span class="tech-tag">Troubleshooting</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Customer Query → Intent Recognition → Knowledge Retrieval → Response Generation → Service Integration</div>
+                            <div class="architecture-item">Vehicle Data → Problem Diagnosis → Solution Provision → Appointment Scheduling → Follow-up</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Vehicle knowledge base and FAQs</li>
+                                <li>Service procedures and manuals</li>
+                                <li>Dealer network information</li>
+                                <li>Warranty and policy details</li>
+                                <li>Common troubleshooting guides</li>
+                                <li>Customer interaction history</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Query Resolution</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">24/7</div>
+                                <div class="metric-label">Availability</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">3-5 seconds</div>
+                                <div class="metric-label">Response Time</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OTA Update Summaries -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon gen">🔄</div>
+                        <div>
+                            <div class="card-title">OTA Update Summaries</div>
+                            <div class="card-subtitle">Software Update Communication</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Generate clear and informative summaries of over-the-air software updates for vehicle owners.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">GPT-4/Claude</span>
+                            <span class="tech-tag">Technical Communication</span>
+                            <span class="tech-tag">Feature Documentation</span>
+                            <span class="tech-tag">User-friendly Language</span>
+                            <span class="tech-tag">Update Scheduling</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Update Details → Feature Analysis → Benefit Explanation → Installation Guide → User Communication</div>
+                            <div class="architecture-item">Code Changes → Security Updates → Performance Improvements → Bug Fixes → Release Notes</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Software update technical details</li>
+                                <li>Feature descriptions and benefits</li>
+                                <li>Security vulnerability information</li>
+                                <li>Performance improvement metrics</li>
+                                <li>User impact and instructions</li>
+                                <li>Rollback procedures and safety</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">90-95%</div>
+                                <div class="metric-label">User Understanding</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">70-85%</div>
+                                <div class="metric-label">Update Adoption</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">Real-time</div>
+                                <div class="metric-label">Communication</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agentic AI Use Cases -->
+        <div id="agentic" class="content-section">
+            <h2 class="section-title">🤖 Agentic AI Systems</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
+                Autonomous AI agents that can reason, plan, and execute complex automotive workflows and vehicle management
+            </p>
+
+            <div class="card-grid">
+                <!-- Autonomous Fleet Management -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">🚗</div>
+                        <div>
+                            <div class="card-title">Autonomous Fleet Management</div>
+                            <div class="card-subtitle">Smart Vehicle Coordination</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Autonomously manage and optimize vehicle fleets for ride-sharing, delivery, and corporate use.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Fleet Optimization</span>
+                            <span class="tech-tag">Route Planning</span>
+                            <span class="tech-tag">Demand Forecasting</span>
+                            <span class="tech-tag">Maintenance Coordination</span>
+                            <span class="tech-tag">Performance Monitoring</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Fleet Status → Demand Analysis → Vehicle Allocation → Route Optimization → Service Coordination</div>
+                            <div class="architecture-item">Maintenance Scheduling → Charging Management → Performance Tracking → Cost Optimization → Reporting</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Real-time vehicle location and status</li>
+                                <li>Demand patterns and forecasting</li>
+                                <li>Charging station availability</li>
+                                <li>Maintenance schedules and needs</li>
+                                <li>Driver availability and regulations</li>
+                                <li>Operational cost data</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">25-40%</div>
+                                <div class="metric-label">Operational Costs</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Vehicle Utilization</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">20-35%</div>
+                                <div class="metric-label">Maintenance Downtime</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Predictive Service Booking -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">📅</div>
+                        <div>
+                            <div class="card-title">Predictive Service Booking</div>
+                            <div class="card-subtitle">Smart Maintenance Scheduling</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Automatically schedule vehicle service appointments based on predictive maintenance needs and customer preferences.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Predictive Analytics</span>
+                            <span class="tech-tag">Appointment Scheduling</span>
+                            <span class="tech-tag">Customer Preferences</span>
+                            <span class="tech-tag">Service Optimization</span>
+                            <span class="tech-tag">Reminder Systems</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Vehicle Health → Service Prediction → Customer Preferences → Appointment Scheduling → Confirmation</div>
+                            <div class="architecture-item">Service Center Availability → Technician Scheduling → Parts Inventory → Customer Communication → Follow-up</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Vehicle diagnostic and health data</li>
+                                <li>Customer service history and preferences</li>
+                                <li>Service center capacity and availability</li>
+                                <li>Technician schedules and expertise</li>
+                                <li>Parts inventory and lead times</li>
+                                <li>Customer communication preferences</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Service Conversion</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Customer Convenience</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">25-40%</div>
+                                <div class="metric-label">Service Center Efficiency</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EV Charging Optimization -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">⚡</div>
+                        <div>
+                            <div class="card-title">EV Charging Optimization</div>
+                            <div class="card-subtitle">Smart Energy Management</div>
+                            <span class="ev-badge">Electric Vehicle</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Optimize electric vehicle charging schedules and locations to minimize costs and maximize convenience.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Energy Management</span>
+                            <span class="tech-tag">Charging Network Analysis</span>
+                            <span class="tech-tag">Cost Optimization</span>
+                            <span class="tech-tag">Grid Integration</span>
+                            <span class="tech-tag">User Preferences</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Battery Status → Charging Needs → Location Analysis → Cost Optimization → Charging Schedule</div>
+                            <div class="architecture-item">Grid Load → Time-of-use Rates → Charging Availability → Route Integration → Energy Management</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>EV battery status and charging needs</li>
+                                <li>Charging station network data</li>
+                                <li>Electricity pricing and tariffs</li>
+                                <li>Grid load and capacity information</li>
+                                <li>User driving patterns and preferences</li>
+                                <li>Home and workplace charging options</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">20-35%</div>
+                                <div class="metric-label">Charging Costs</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Charging Time</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">Grid Impact</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Smart Manufacturing Coordination -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">🏭</div>
+                        <div>
+                            <div class="card-title">Smart Manufacturing Coordination</div>
+                            <div class="card-subtitle">Production Line Optimization</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Coordinate and optimize automotive manufacturing processes using AI-driven production management.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Manufacturing Automation</span>
+                            <span class="tech-tag">Production Scheduling</span>
+                            <span class="tech-tag">Quality Control</span>
+                            <span class="tech-tag">Supply Chain Integration</span>
+                            <span class="tech-tag">Predictive Maintenance</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Order Requirements → Production Planning → Resource Allocation → Quality Monitoring → Delivery Coordination</div>
+                            <div class="architecture-item">Supplier Integration → Inventory Management → Assembly Line → Testing → Final Inspection</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Production line sensor data</li>
+                                <li>Quality control measurements</li>
+                                <li>Supplier delivery schedules</li>
+                                <li>Inventory levels and tracking</li>
+                                <li>Equipment performance data</li>
+                                <li>Workforce scheduling and skills</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">25-40%</div>
+                                <div class="metric-label">Production Efficiency</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Quality Defects</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">20-35%</div>
+                                <div class="metric-label">Production Costs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobility-as-a-Service Orchestration -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">🚖</div>
+                        <div>
+                            <div class="card-title">Mobility-as-a-Service</div>
+                            <div class="card-subtitle">Integrated Transportation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Orchestrate multiple transportation modes and services to provide seamless mobility solutions.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Multi-modal Integration</span>
+                            <span class="tech-tag">Route Optimization</span>
+                            <span class="tech-tag">Demand Management</span>
+                            <span class="tech-tag">Payment Integration</span>
+                            <span class="tech-tag">User Experience</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">User Request → Mode Selection → Route Planning → Service Booking → Payment Processing</div>
+                            <div class="architecture-item">Real-time Data → Demand Forecasting → Capacity Management → Dynamic Pricing → Service Coordination</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Public and private transport schedules</li>
+                                <li>Ride-sharing and micro-mobility availability</li>
+                                <li>Traffic and congestion data</li>
+                                <li>User preferences and behavior</li>
+                                <li>Pricing and payment systems</li>
+                                <li>Environmental and regulatory factors</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Travel Time</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">25-40%</div>
+                                <div class="metric-label">Transportation Costs</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">40-60%</div>
+                                <div class="metric-label">User Satisfaction</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recall Management Agent -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="icon ag">⚠️</div>
+                        <div>
+                            <div class="card-title">Recall Management</div>
+                            <div class="card-subtitle">Safety Issue Resolution</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Automate and optimize vehicle recall processes to ensure customer safety and regulatory compliance.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Issue Detection</span>
+                            <span class="tech-tag">Customer Notification</span>
+                            <span class="tech-tag">Service Coordination</span>
+                            <span class="tech-tag">Regulatory Compliance</span>
+                            <span class="tech-tag">Cost Management</span>
+                        </div>
+
+                        <div class="architecture-diagram">
+                            <div class="architecture-item">Issue Identification → Affected Vehicles → Customer Notification → Service Scheduling → Repair Coordination</div>
+                            <div class="architecture-item">Regulatory Reporting → Parts Availability → Technician Training → Quality Control → Follow-up</div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <span class="highlight-title">Ground Data Strategy:</span>
+                            <ul>
+                                <li>Vehicle production and VIN data</li>
+                                <li>Quality control and defect reports</li>
+                                <li>Customer contact information</li>
+                                <li>Service center capabilities</li>
+                                <li>Regulatory requirements</li>
+                                <li>Parts inventory and logistics</li>
+                            </ul>
+                        </div>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">85-95%</div>
+                                <div class="metric-label">Recall Completion</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60-80%</div>
+                                <div class="metric-label">Processing Time</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">30-50%</div>
+                                <div class="metric-label">Recall Costs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>✨ Built with cutting-edge AI technologies for the future of automotive and mobility</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                Note: Implementation requires careful consideration of safety standards, regulatory compliance, and automotive industry certifications
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update navigation buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Find and activate the clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
